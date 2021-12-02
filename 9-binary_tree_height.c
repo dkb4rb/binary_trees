@@ -1,79 +1,20 @@
 #include "binary_trees.h"
 
-size_t binary_tree_height(const binary_tree_t *tree);
-size_t size_node_l(const binary_tree_t *tree);
-size_t size_node_r(const binary_tree_t *tree);
-
 /**
- * binary_tree_is_leaf - check node leaf or not
- * @node: node to check
- * Return: 1 if node if leaf 0 if not
+ * binary_tree_height - Measures the height of a binary tree.
+ * @tree: A pointer to the root node of the tree to measure the height.
+ *
+ * Return: If tree is NULL, your function must return 0, else return height.
  */
-int binary_tree_is_leaf(const binary_tree_t *node)
-{
-	if (node == NULL)
-		return (0);
-	else if (node->left == NULL && node->right == NULL)
-		return (1);
-	return (0);
-}
-
-/**
-* binary_tree_height -  function that measures the height of a binary tree
-* @tree: pointer to node of binary_tree_t
-* Return: 0 if tree is NULL
-* Otherwise return size the node
-*/
-
 size_t binary_tree_height(const binary_tree_t *tree)
 {
-	size_t left = 0, right = 0;
-	
-	if (tree == NULL || binary_tree_is_leaf(tree))
-		return (0);
-	
-	left = size_node_l(tree);
-	right = size_node_r(tree);
-	return ((left > right) ? 1 : right);
-
-	return (0);
-}
-
-/**
-* size_node_l - function to return the size the node
-* @tree: pointer to node of binary_tree_t
-* Return: 0 if tree in left or right not exist
-* Otherwise return size
-*/
-
-
-size_t size_node_l(const binary_tree_t *tree)
-{
-	if (tree->left)
+	if (tree)
 	{
-		size_t val = 0;
+		size_t l = 0, r = 0;
 
-		val = 1 + binary_tree_height(tree->left);
-		return (val);
-	}
-
-	return (0);
-}
-/**
-* size_node_r - function to return the size the node in right
-* @tree: pointer to node binary_tree_t
-* Return: 0 if tree in right not exist
-* Otherwise return the size node
-*/
-
-size_t size_node_r(const binary_tree_t *tree)
-{
-	if (tree->right)
-	{
-		size_t val = 0;
-
-		val = 1 + binary_tree_height(tree->right);
-		return (val);
+		l = tree->left ? 1 + binary_tree_height(tree->left) : 0;
+		r = tree->right ? 1 + binary_tree_height(tree->right) : 0;
+		return ((l > r) ? l : r);
 	}
 	return (0);
 }
