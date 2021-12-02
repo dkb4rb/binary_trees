@@ -1,9 +1,4 @@
 #include "binary_trees.h"
-
-int binary_tree_is_perfect(const binary_tree_t *tree);
-int tree_height(const binary_tree_t *tree);
-int binary_tree_is_leaf(const binary_tree_t *node);
-
 /**
  * binary_tree_is_leaf - check node leaf or not
  * @node: node to check
@@ -19,32 +14,31 @@ int binary_tree_is_leaf(const binary_tree_t *node)
 }
 
 /**
-* tree_height - measures the hight of the tree
-* @tree:pointer to the root node of the tree
-* Return: 0 if tree is NULL else the hight
-*/
-
-int tree_height(const binary_tree_t *tree)
+ * binary_tree_height - measures the hight of the tree
+ * @tree:pointer to the root node of the tree
+ * Return: 0 if tree is NULL else the hight
+ */
+size_t binary_tree_height(const binary_tree_t *tree)
 {
-	int h_l, h_r;
+	size_t h_left, h_right;
 
-	if (tree == NULL)
+	if (tree == NULL || binary_tree_is_leaf(tree))
 		return (0);
+	h_left = binary_tree_height(tree->left);
+	h_right = binary_tree_height(tree->right);
+	if (h_right <= h_left)
+		return (h_left + 1);
 
-	h_l = tree_height(tree->left);
-	h_r = tree_height(tree->right);
+	return (h_right + 1);
 
-	if (h_l >= h_r)
-		return (h_l + 1);
-
-	return (h_r + 1);
 }
-/**
-* binary_tree_is_perfect - measures the balance factor of a binary tree
-* @tree: a pointer to the root node of the tree to measure the balance factor
-* Return: 0 or balance factor
-*/
 
+/**
+ * binary_tree_is_perfect - if tree is balanced in the right and left
+ * then its perfect
+ * @tree:node of tree
+ * Return: 1 if perfect 0 if not
+ */
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
 	binary_tree_t *left, *right;
@@ -67,4 +61,5 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 			return (1);
 	}
 	return (0);
+
 }
