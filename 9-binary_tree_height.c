@@ -3,7 +3,7 @@
 /**
  * size_t binary_tree_height - function that goes through a binary
  * tree using in-order traversal.
- * @tree: pointer to the root node of the tree to traverse.
+ * @tree: pointer to the root node of the tree to measure the height.
  * Return: nothing.
  */
 
